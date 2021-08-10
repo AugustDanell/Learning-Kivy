@@ -6,9 +6,16 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
 class text_game(App):
-    def button_texts(self, state):
-        pass
-    
+    def button_texts(self, state, button_id):
+        index = ord(button_id)-97
+        buttons = {
+            1: ["You play dead.", "You stay where you are.", "You slowly walk back.", "You fight."],
+            2: ["You re-enter the forrest in spite of the late hour", "You rest for the night", "No option", "No option"],
+            3: ["You follow the trail", "You stay where you are", "No Option", "No Option"]
+        }
+
+        return buttons[state][index]
+
     def text_bank(self, state):
         label = {
             1: "You are walking in the woods and a bear immerges from the bushes, what do you do?",
@@ -22,13 +29,14 @@ class text_game(App):
         A general function that returns the transitions for a state s in the form of a list.     
     '''
 
-    def get_transition_table(self, current_state):
+    def update_state(self, current_state, button_id):
+        index =  ord(button_id) - 97
         game_states = {
                 1 : [3,2,-1,-1],
                 2 : [-1, 3],
                 3 : [4, 1],
         }
-        return game_states[current_state]
+        return game_states[current_state][index]
 
     ''' get_table_size
         Given that we are in a state s we need to know the size of that state table that is how many transitions there
@@ -42,7 +50,7 @@ class text_game(App):
 
     def build(self):
         self.window = GridLayout()
-        self.window.cols = 2
+        self.window.cols = 1
         self.window.size_hint = (0.6, 0.7)
         self.window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
         self.state = 1
@@ -57,33 +65,40 @@ class text_game(App):
         #add widgets to window
 
         self.a = Button(
-            text="A: " + self.button_texts(1),
+            text="A: " + self.button_texts(1, "a"),
             size_hint=(1, 0.5),
             bold=True,
-            background_color='#00FFCE',
+            background_color='#00FFAF',
         )
+        self.window.add_widget(self.a)
+        self.a.bind(on_press=lambda x: self.update_state(1,"a"))
 
         self.b = Button(
-            text="A: " + self.button_texts(1),
+            text="B: " + self.button_texts(1,"b"),
             size_hint=(1, 0.5),
             bold=True,
-            background_color='#00FFCE',
+            background_color='#00FFAF',
         )
+        self.window.add_widget(self.b)
+        self.b.bind(on_press=lambda x: self.update_state(1,"b"))
 
         self.c = Button(
-            text="A: " + self.button_texts(1),
+            text="C: " + self.button_texts(1,"c"),
             size_hint=(1, 0.5),
             bold=True,
-            background_color='#00FFCE',
+            background_color='#00FFAF',
         )
+        self.window.add_widget(self.c)
+        self.c.bind(on_press=lambda x: self.update_state(1,"b"))
 
         self.d = Button(
-            text="A: " + self.button_texts(1),
+            text="D: " + self.button_texts(1, "d"),
             size_hint=(1, 0.5),
             bold=True,
-            background_color='#00FFCE',
+            background_color='#00FFAF',
         )
-
+        self.window.add_widget(self.d)
+        self.d.bind(on_press=lambda x: self.update_state(1,"d"))
 
         return self.window
 
