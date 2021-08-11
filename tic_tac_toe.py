@@ -7,11 +7,39 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
 class text_game(App):
-    def check_three_in_row(self):
-        pass
+    def check_three_in_row(self, x, y):
+        if(self.board[x][y] == 0):
+            return False
+        else:
+            player_square = self.board[x][y]
+            if(x in [0,2] and y in [0,2]):
+                return False    # Return corner points as false directly.
+
+            elif(not x == 1 and y == 1):
+                if(self.board[x][0] == player_square and self.board[x][2]):
+                    return True
+
+            elif(x == 1 and not y == 1):
+                if(self.board[0][y] == player_square and self.board[2][y]):
+                    return True
+
+            else:
+                if(self.board[1][0] == player_square and self.board[1][2] == player_square):
+                    return True
+                if(self.board[0][1] == player_square and self.board[2][1] == player_square):
+                    return True
+                if(self.board[0][0] == player_square and self.board[2][2] == player_square):
+                    return True
+                if(self.board[2][0] == player_square and self.board[0][2] == player_square):
+                    return True
 
     def check_board(self):
-        pass
+        for x in range(3):
+            for y in range(3):
+                if(self.check_three_in_row(x, y)):
+                    return True
+
+        return False
 
     ''' get_transition_table
         A general function that returns the transitions for a state s in the form of a list.     
@@ -58,7 +86,7 @@ class text_game(App):
         self.window.size_hint = (0.6, 0.7)
         self.window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
         self.player_turn = 1
-        self.board = [[],[],[]]
+        self.board = [[0,0,0],[0,0,0],[0,0,0]]
         self.button_map = {}
 
         self.rel_layout = RelativeLayout()
