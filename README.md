@@ -14,7 +14,7 @@ An application of a classic tic-tac-toe game with a red and blue player. The obj
 An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those. 
 
 # Images
-## text_game.py:
+## text_game.py
 <img src="https://user-images.githubusercontent.com/70810124/128862428-69ed0d4f-3f33-49e7-9226-b5b964f77dcc.png" width = "400" height = "300" />
 <img src="https://user-images.githubusercontent.com/70810124/128862457-9399dc3a-2fe5-466e-bf64-4de1aa162c34.png" width = "400" height = "300" />
 
