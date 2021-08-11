@@ -10,6 +10,9 @@ A simple application where the user inputs two numbers a,b and gets an answer ba
 ## tic_tac_toe.py
 An application of a classic tic-tac-toe game with a red and blue player. The object of the game is to get 3 in a row, diagonally, horisontally or vertically. The first player to achieve this wins in this game where player takes turn to put their markers on a 3x3 board. 
 
+## learner.py (TODO)
+An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those. 
+
 # Images
 ## text_game.py (Blueberries):
 <img src="https://user-images.githubusercontent.com/70810124/128862428-69ed0d4f-3f33-49e7-9226-b5b964f77dcc.png" width = "400" height = "300" />
@@ -18,3 +21,7 @@ An application of a classic tic-tac-toe game with a red and blue player. The obj
 ## kivy_calculator.py
 <img src="https://user-images.githubusercontent.com/70810124/128889661-2a4b6685-ddae-4c01-86de-9fb4994e75fc.png" width = "400" height = "300" />
 <img src="https://user-images.githubusercontent.com/70810124/128889665-b14157c4-8c21-4a41-b5e4-4bede05cfb0e.png" width = "400" height = "300" />
+
+## tic_tac_toe.py
+<img src ="https://user-images.githubusercontent.com/70810124/129105178-9f8598c8-587d-450e-87d8-44af13193234.png" width = "400" height = "300" />
+<img src ="https://user-images.githubusercontent.com/70810124/129105184-d8a6f964-4a20-4b9f-a2d1-8326e3485df6.png" width = "400" height = "300" />
