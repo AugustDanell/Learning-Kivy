@@ -6,29 +6,6 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
 class text_game(App):
-    def button_texts(self, button_id):
-        index = ord(button_id)-97
-        buttons = {
-           -1: ["No Option", "No Option", "No Option", "No Option"],
-            1: ["You play dead.", "You slowly walk back.", "You stay where you are.", "You fight."],
-            2: ["You re-enter the forrest in spite of the late hour", "You rest for the night", "No option", "No option"],
-            3: ["You follow the trail", "You stay where you are", "No Option", "No Option"],
-            4: ["No Option", "No Option", "No Option", "No Option"]
-        }
-
-        return buttons[self.state][index]
-
-    def text_bank(self):
-        label = {
-            -1: "You wake up at the hospital in pain. The bear went to work on your body but the real source\n of your pain, you realize, is that you never got to taste those Swedish blueberries. You lose!",
-            1: "You are walking in the woods and a bear immerges from the bushes, what do you do?",
-            2: "The bear has stopped following you. Now you are back home but it is getting dark, what do you do?",
-            3: "You see a dead dear by the road, someone ... or something has killed it, what do you do?",
-            4: "You emerge from thorny shrubbery and behold the most tasty of blueberries! \nThere is no bear in sight! You have won a most tasty victory!"
-        }
-
-        return label[self.state]
-
     def check_three_in_row(self):
         pass
 
@@ -37,12 +14,15 @@ class text_game(App):
     '''
 
     def update_state(self,  button_id):
-        if(self.player_turn == 1):
-            self.button_map[button_id].background_color = "FF0000"
-        else:
-            self.button_map[button_id].background_color = "0000FF"
+        if(not "Player" in self.button_map[button_id].text):
+            if(self.player_turn == 1):
+                self.button_map[button_id].background_color = "FF0000"
+                self.button_map[button_id].text = "Player 1"
+            else:
+                self.button_map[button_id].background_color = "0000FF"
+                self.button_map[button_id].text = "Player 2"
 
-        self.player_turn = (self.player_turn % 2) +1
+            self.player_turn = (self.player_turn % 2) +1
 
 
     ''' get_table_size
