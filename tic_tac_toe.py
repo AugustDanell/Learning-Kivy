@@ -11,14 +11,14 @@ class text_game(App):
         pass
 
     def check_board(self):
-        return True
+        pass
 
     ''' get_transition_table
         A general function that returns the transitions for a state s in the form of a list.     
     '''
 
     def update_state(self,  button_id):
-        if(not "Player" in self.button_map[button_id].text and not self.win_label.text == ""):
+        if(not "Player" in self.button_map[button_id].text and self.win_label.text == ""):
             index = ord(button_id) - 97
             row = index // 3
             col = index % 3
