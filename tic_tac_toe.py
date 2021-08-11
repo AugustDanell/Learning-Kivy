@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.button import Button
@@ -8,16 +9,16 @@ from kivy.uix.textinput import TextInput
 class text_game(App):
     def check_three_in_row(self):
         pass
-    
+
     def check_board(self):
-        pass
+        return True
 
     ''' get_transition_table
         A general function that returns the transitions for a state s in the form of a list.     
     '''
 
     def update_state(self,  button_id):
-        if(not "Player" in self.button_map[button_id].text and self.win_label.text == ""):
+        if(not "Player" in self.button_map[button_id].text and not self.win_label.text == ""):
             index = ord(button_id) - 97
             row = index // 3
             col = index % 3
@@ -32,12 +33,12 @@ class text_game(App):
                 self.board[row][col] = 2
 
             if(self.check_board()):
-                self.win_label.text = "%d is the winner!" %(self.player_turn)
+                self.win_label.text = "%d is the winner of this game! Close to play again." %(self.player_turn)
                 if(self.player_turn == 1):
                     self.win_label.color = "FF0000"
                 else:
                     self.win_label.color = "0000FF"
-                    
+
             else:
                 self.player_turn = (self.player_turn % 2) +1
 
@@ -59,8 +60,11 @@ class text_game(App):
         self.player_turn = 1
         self.board = [[],[],[]]
         self.button_map = {}
+
+        self.rel_layout = RelativeLayout()
         self.win_label = Label(
             text="",
+            pos_hint = {'x': 1},
         )
         #add widgets to window
 
@@ -163,7 +167,8 @@ class text_game(App):
         self.button_map["i"] = self.i
         self.i.bind(on_press=lambda x: self.update_state("i"))
 
-        self.window.add_widget(self.win_label)
+        self.window.add_widget(self.rel_layout)
+        self.rel_layout.add_widget(self.win_label)
 
         return self.window
 
