@@ -7,6 +7,8 @@ This is my first kivy project, a small text game where the player plays by press
 ## kivy_calculator.py
 A simple application where the user inputs two numbers a,b and gets an answer based on what operation the user wants to perform. Some error handling is done to make sure that the user inputs integers, and not something else, as well as to avoid division with zero. A standard calculator. 
 
+## tic_tac_toe.py
+An application of a classic tic-tac-toe game with a red and blue player. The object of the game is to get 3 in a row, diagonally, horisontally or vertically. The first player to achieve this wins in this game where player takes turn to put their markers on a 3x3 board. 
 
 # Images
 ## text_game.py (Blueberries):
