@@ -2,11 +2,13 @@ from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.label import Label
-from kivy.uix.image import Image
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 
 class text_game(App):
+    ''' check_three_in_row()
+        Takes in a tuple (x,y) and looks to see if it is a center point or not, where a center point is a center point
+        in three in a row, either horisisontically, diagonally or vertically.
+    '''
     def check_three_in_row(self, x, y):
         if(self.board[x][y] == 0):
             return False
@@ -33,6 +35,9 @@ class text_game(App):
                 if(self.board[2][0] == player_square and self.board[0][2] == player_square):
                     return True
 
+    ''' check_board()
+        Iterates accross the board and calls check_three_in_row for every coordinate of x and y.
+    '''
     def check_board(self):
         for x in range(3):
             for y in range(3):
@@ -41,8 +46,10 @@ class text_game(App):
 
         return False
 
-    ''' get_transition_table
-        A general function that returns the transitions for a state s in the form of a list.     
+    ''' update_state
+        Updates the board. The board listens to buttons being clicked and if they are clicked, given that no player has
+        won, the square that was clicked will become the player who is currently playing, and the turn will alternate to
+        the other player, starting with red.    
     '''
 
     def update_state(self,  button_id):
@@ -70,32 +77,29 @@ class text_game(App):
             else:
                 self.player_turn = (self.player_turn % 2) +1
 
-    ''' get_table_size
-        Given that we are in a state s we need to know the size of that state table that is how many transitions there
-        are, we need this to be able to know how many buttons to draw for a given state.
-    '''
-
-    def get_table_size(self, current_state):
-        return len(self.get_transistion_table(current_state))
-
-
-
     def build(self):
         self.window = GridLayout()
         self.window.cols = 3
+
+        # Centers the button-window in a way that is good:
         self.window.size_hint = (0.6, 0.7)
         self.window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
+
+        # A counter for who is currently playing (player one or red, binary choice):
         self.player_turn = 1
+
+        # Mapping the current board and setting up a map for easy access to each button object:
         self.board = [[0,0,0],[0,0,0],[0,0,0]]
         self.button_map = {}
 
+        # Setting a relative layout in which we will place our label announcing the winner:
         self.rel_layout = RelativeLayout()
         self.win_label = Label(
             text="",
             pos_hint = {'x': 1},
         )
-        #add widgets to window
 
+        #adding buttons:
         self.a = Button(
             text="1",
             size_hint=(1, 0.5),
