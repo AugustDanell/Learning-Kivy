@@ -29,33 +29,21 @@ class text_game(App):
 
         return label[self.state]
 
-    def update(self):
-        self.a.text = self.button_texts("a")
-        self.b.text = self.button_texts("b")
-        self.c.text = self.button_texts("c")
-        self.d.text = self.button_texts("d")
-
-        if(self.state == -1):
-            self.scenario_text.color = "FF0000"
-        elif (self.state == 4):
-            self.scenario_text.color = "0000FF"
-
-        self.scenario_text.text = self.text_bank()
+    def check_three_in_row(self):
+        pass
 
     ''' get_transition_table
         A general function that returns the transitions for a state s in the form of a list.     
     '''
 
     def update_state(self,  button_id):
-        index =  ord(button_id) - 97
-        game_states = {
-                1 : [3,2,-1,-1],
-                2 : [-1, 3],
-                3 : [4, 1],
-        }
-        print(index)
-        self.state = game_states[self.state][index]
-        self.update()
+        if(self.player_turn == 1):
+            self.button_map[button_id].background_color = "FF0000"
+        else:
+            self.button_map[button_id].background_color = "0000FF"
+
+        self.player_turn = (self.player_turn % 2) +1
+
 
     ''' get_table_size
         Given that we are in a state s we need to know the size of that state table that is how many transitions there
@@ -72,8 +60,8 @@ class text_game(App):
         self.window.cols = 3
         self.window.size_hint = (0.6, 0.7)
         self.window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
-        self.state = 1
-
+        self.player_turn = 1
+        self.button_map = {}
         #add widgets to window
 
         self.a = Button(
@@ -83,6 +71,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.a)
+        self.button_map["a"] = self.a
         self.a.bind(on_press=lambda x: self.update_state("a"))
 
         self.b = Button(
@@ -92,6 +81,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.b)
+        self.button_map["b"] = self.b
         self.b.bind(on_press=lambda x: self.update_state("b"))
 
         self.c = Button(
@@ -101,6 +91,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.c)
+        self.button_map["c"] = self.c
         self.c.bind(on_press=lambda x: self.update_state("c"))
 
         self.d = Button(
@@ -110,6 +101,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.d)
+        self.button_map["d"] = self.d
         self.d.bind(on_press=lambda x: self.update_state("d"))
 
         self.e = Button(
@@ -119,6 +111,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.e)
+        self.button_map["e"] = self.e
         self.e.bind(on_press=lambda x: self.update_state("e"))
 
         self.f = Button(
@@ -128,6 +121,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.f)
+        self.button_map["f"] = self.f
         self.f.bind(on_press=lambda x: self.update_state("f"))
 
         self.g = Button(
@@ -137,6 +131,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.g)
+        self.button_map["g"] = self.g
         self.g.bind(on_press=lambda x: self.update_state("g"))
 
         self.h = Button(
@@ -146,6 +141,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.h)
+        self.button_map["h"] = self.h
         self.h.bind(on_press=lambda x: self.update_state("h"))
 
         self.i = Button(
@@ -155,6 +151,7 @@ class text_game(App):
             background_color='#00FFAF',
         )
         self.window.add_widget(self.i)
+        self.button_map["i"] = self.i
         self.i.bind(on_press=lambda x: self.update_state("i"))
 
         return self.window
