@@ -5,11 +5,12 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 
 class text_game(App):
-    ''' check_three_in_row()
-        Takes in a tuple (x,y) and looks to see if it is a center point or not, where a center point is a center point
-        in three in a row, either horisisontically, diagonally or vertically.
-    '''
     def check_three_in_row(self, x, y):
+        ''' check_three_in_row()
+            Takes in a tuple (x,y) and looks to see if it is a center point or not, where a center point is a center point
+            in three in a row, either horisisontically, diagonally or vertically.
+        '''
+        
         if(self.board[x][y] == 0):
             return False
         else:
@@ -35,10 +36,10 @@ class text_game(App):
                 if(self.board[2][0] == player_square and self.board[0][2] == player_square):
                     return True
 
-    ''' check_board()
-        Iterates accross the board and calls check_three_in_row for every coordinate of x and y.
-    '''
     def check_board(self):
+        ''' check_board()
+            Iterates accross the board and calls check_three_in_row for every coordinate of x and y.
+        '''
         for x in range(3):
             for y in range(3):
                 if(self.check_three_in_row(x, y)):
@@ -46,13 +47,13 @@ class text_game(App):
 
         return False
 
-    ''' update_state
-        Updates the board. The board listens to buttons being clicked and if they are clicked, given that no player has
-        won, the square that was clicked will become the player who is currently playing, and the turn will alternate to
-        the other player, starting with red.    
-    '''
-
     def update_state(self,  button_id):
+        ''' update_state
+            Updates the board. The board listens to buttons being clicked and if they are clicked, given that no player has
+            won, the square that was clicked will become the player who is currently playing, and the turn will alternate to
+            the other player, starting with red.
+        '''
+
         if(not "Player" in self.button_map[button_id].text and self.win_label.text == ""):
             index = ord(button_id) - 97
             row = index // 3
