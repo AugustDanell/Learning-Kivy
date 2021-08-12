@@ -18,11 +18,11 @@ class text_game(App):
                 return False    # Return corner points as false directly.
 
             elif(not x == 1 and y == 1):
-                if(self.board[x][0] == player_square and self.board[x][2]):
+                if(self.board[x][0] == player_square and self.board[x][2] == player_square):
                     return True
 
             elif(x == 1 and not y == 1):
-                if(self.board[0][y] == player_square and self.board[2][y]):
+                if(self.board[0][y] == player_square and self.board[2][y] == player_square):
                     return True
 
             else:
