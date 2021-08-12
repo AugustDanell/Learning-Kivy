@@ -57,6 +57,7 @@ class text_game(App):
             index = ord(button_id) - 97
             row = index // 3
             col = index % 3
+            self.played_turns += 1
 
             if(self.player_turn == 1):
                 self.button_map[button_id].background_color = "FF0000"
@@ -77,6 +78,11 @@ class text_game(App):
             else:
                 self.player_turn = (self.player_turn % 2) +1
 
+        # Declare a draw:
+        if(self.played_turns == 9):
+            self.win_label.color = "00FF00"
+            self.win_label.text = "The game has come to a draw, no winners, close to play again."
+
     def build(self):
         self.window = GridLayout()
         self.window.cols = 3
@@ -87,6 +93,7 @@ class text_game(App):
 
         # A counter for who is currently playing (player one or red, binary choice):
         self.player_turn = 1
+        self.played_turns = 0
 
         # Mapping the current board and setting up a map for easy access to each button object:
         self.board = [[0,0,0],[0,0,0],[0,0,0]]
