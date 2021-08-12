@@ -10,6 +10,12 @@ A simple application where the user inputs two numbers a,b and gets an answer ba
 ## tic_tac_toe.py
 An application of a classic tic-tac-toe game with a red and blue player. The object of the game is to get 3 in a row, diagonally, horisontally or vertically. The first player to achieve this wins in this game where player takes turn to put their markers on a 3x3 board. [Pictures!](#tic_tac_toepy-1)
 
+## tic_tac_toe_3D.py (TODO)
+An extension of the normal tic_tac_toe game into 3D-space. The dimensions will be, for this game, 3x3x3 and it is as if you are dropping down a marker in the z-axis. This means that you cannot start with the play (1,1,2) for instance, even though it is an ok square, (1,1,1) and (1,1,0) first has to be taken. We think of it as stones being stacked upon each other. The check becomes more difficult simply because there is inclinational cases to take care of in this, more exciting, version of tic-tac-toe.
+
+## Memory.py (TODO)
+An implementation of a typical memory. Match the squares together in this game and remember where they were. The idea for this game is to initiate a 5x6 grid layout, totaling a size of 30 cards. Every card will be an object where two cards are the same and they will be initiated in a deck. We will then use the Fisher-Yates shuffling algorithm to shuffle the deck around, to then finally distribute them opon the grid. 
+
 ## learner.py (TODO)
 An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those.
 
