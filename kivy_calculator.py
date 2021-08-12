@@ -7,6 +7,10 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
 class text_game(App):
+    '''
+        text_bank
+        A function that returns a text based on what button was clicked so that the application can display what operation is in use.
+    '''
     def text_bank(self):
         label = {
             1: "Operation is set to addition!",
@@ -16,15 +20,21 @@ class text_game(App):
         }
 
         return label[self.state]
-
+    
     def update(self):
+        '''
+            update()
+            A general update function that updates the displayed text.
+        '''
+        
         self.scenario_text.text = self.text_bank()
 
-    ''' get_transition_table
-        A general function that returns the transitions for a state s in the form of a list.     
-    '''
 
     def update_state(self,  button_id):
+        ''' update_state
+            A function that returns the transitions for a state s in the form of a list. Generally this is seen as a graph with the amount of nodes similar 
+        '''
+
         index =  ord(button_id) - 97
         game_states = {
                 1 : [1,2,3,4],
@@ -35,15 +45,11 @@ class text_game(App):
         self.state = game_states[self.state][index]
         self.update()
 
-    ''' get_table_size
-        Given that we are in a state s we need to know the size of that state table that is how many transitions there
-        are, we need this to be able to know how many buttons to draw for a given state.
-    '''
-
-    def get_table_size(self, current_state):
-        return len(self.get_transistion_table(current_state))
-
     def calculate(self):
+        ''' Calculate()
+            Calculate the result of two operands, also throwing exceptions for bad values:
+        '''
+        
         try:
             a = int(self.variable_one.text)
             b = int(self.variable_two.text)
@@ -67,6 +73,7 @@ class text_game(App):
 
 
     def build(self):
+        # Setting up some windows:
         self.window = GridLayout()
         self.button_box = BoxLayout()
         self.window.cols = 1
@@ -82,7 +89,7 @@ class text_game(App):
 
         self.window.add_widget(self.scenario_text)
 
-        # Adding buttons:
+        # Adding buttons and attaching them to the update_state function:
         self.a = Button(
             text="Set Addition",
             size_hint=(1, 0.5),
