@@ -45,8 +45,13 @@ class Memory(App):
             rand = random.randint(0, i)
             self.card_list[i], self.card_list[rand] = self.card_list[rand], self.card_list[i]
 
-    def flip_card(self):
-        pass
+    def update_score(self):
+        self.info.text = "Current turn: Player One, Score: %d %d" %(self.score_list[0], self.score_list[1])
+
+
+    def flip_card(self, id):
+        index = id-1
+        self.turn_counter += 1
 
     def add_button(self, id):
         b = Button(
@@ -57,12 +62,15 @@ class Memory(App):
         )
 
         self.window.add_widget(b)
-        b.bind(on_press=lambda x: self.flip_card())
+        b.bind(on_press=lambda x: self.flip_card(b.text))
         self.button_list.append(b)
 
     def build(self):
         amount_of_cards = 5
         self.card_list = []
+        self.player_turn = 1
+        self.turn_counter = 0
+        self.score_list = [0,0]
 
         for i in range(amount_of_cards):
             self.card_list.append(card(i+1))
@@ -76,8 +84,18 @@ class Memory(App):
         self.window.cols = 5
         self.button_list = []
 
+        # Adding buttons:
         for i in range(2*amount_of_cards):
             self.add_button(str(i+1))
+
+        # Fixing a label to say which turn it is:
+        self.info = Label(
+            text = "",
+            size_hint=(8, 0.5),
+        )
+        self.update_score()
+        self.window.add_widget(self.info)
+
 
         return self.window
 
