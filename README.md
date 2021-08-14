@@ -23,6 +23,8 @@ An application much like a flash card learner where a user can add a text and as
 ## Fun_With_Sorting_Algorithms (TODO)
 A game where the user will get different animations of sorting algorithms and the goal is to correctly guess the sorting algorithm. This is meant to be a fun gameified learning experience to repeat, or familiarize oneself with the different sorting algorithms one can come across. 
 
+## Mobile Approximater (TODO)
+An application that takes in a function and calculates things like extreme values, derivations and/or integrals using numerical methods. The idea is to merge some ideas from Numerical Methods with the Kivy framework to make a calculator designed specifically for approximating such things. With that one can use such a tool when working calculus problems and be reasonably sure to have the correct answer if the approximation is the same as that analytical answer. 
 
 # Images
 ## text_game.py
