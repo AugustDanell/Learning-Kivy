@@ -56,26 +56,43 @@ class Memory(App):
         self.add_button(str(id))
 
     def flip_card(self, id):
-        # Defining useful variables:
-        index = id-1
+        # Setting the index and checking if it is a won card already, and if so, we should do nothing:
+        index = id - 1
+        if(index in self.winning_indices):
+            return 0
+
+        # Incrementing the turn counter:
         self.turn_counter += 1
 
-        # count flips, set as flipped and potentially alternate turn:
+
+        # Count flips, set as flipped and potentially alternate turn:
         if(self.turn_counter == 3):
             self.turn_counter = 0
             first_card, second_card = self.flipped_cards
 
-            self.un_flip(first_card)
-            self.un_flip(second_card)
-            self.flipped_cards = [0,0]
-            self.player_turn = (self.player_turn % 2) + 1
-            return 0 
+            # See if we got two of the same:
+            is_pair = False
+            print(first_card, second_card)
+            if(self.card_list[first_card] == self.card_list[second_card]):
+                print("Ok, they are the same")
+                is_pair = True
+                self.winning_indices.append(first_card)
+                self.winning_indices.append(second_card)
+
+            if(not is_pair):
+                print("Unflipping")
+                self.un_flip(first_card+1)
+                self.un_flip(second_card+1)
+                self.player_turn = (self.player_turn % 2) + 1
+                self.flipped_cards = [0,0]
+
+            return 0
 
         # Flipping the card:
         self.display_list[index].clear_widgets()
         memory_photo = Image(source= self.card_list[index].link)
         self.display_list[index].add_widget(memory_photo)
-        self.flipped_cards[self.turn_counter-1] = id
+        self.flipped_cards[self.turn_counter-1] = id-1
 
     def add_button(self, id):
         b = Button(
@@ -101,6 +118,7 @@ class Memory(App):
         self.amount_of_cards = 5
         self.flipped_cards = [0,0] # Holds the index of the two flipped cards.
         self.display_list = [GridLayout(cols = 1) for i in range(self.amount_of_cards*2)]
+        self.winning_indices = []
 
         self.card_list = []
         self.player_turn = 1
