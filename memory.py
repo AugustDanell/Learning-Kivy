@@ -50,12 +50,16 @@ class Memory(App):
 
 
     def flip_card(self, id):
+        # Defining useful variables:
         index = id-1
         self.turn_counter += 1
 
-        # TODO: We want button[index] to display a picture of its nature.
+        # Flipping the card:
+        self.display_list[index].clear_widgets()
+        memory_photo = Image(source= self.card_list[index].link)
+        self.display_list[index].add_widget(memory_photo)
 
-        # count flips, and alternate turn:
+        # count flips, set as flipped and potentially alternate turn:
         if(self.turn_counter == 2):
             self.turn_counter = 0
             self.flipped_cards = [0]*(self.amount_of_cards*2)
@@ -116,7 +120,7 @@ class Memory(App):
             size_hint=(8, 0.5),
         )
         self.update_score()
-        self.window.add_widget(self.info)
+        #self.window.add_widget(self.info)
 
 
         return self.window
