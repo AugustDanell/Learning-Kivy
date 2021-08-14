@@ -53,6 +53,15 @@ class Memory(App):
         index = id-1
         self.turn_counter += 1
 
+        # TODO: We want button[index] to display a picture of its nature.
+
+        # count flips, and alternate turn:
+        if(self.turn_counter == 2):
+            self.turn_counter = 0
+            self.flipped_cards = [0]*(self.amount_of_cards*2)
+            self.player_turn = (self.player_turn % 2) + 1
+
+
     def add_button(self, id):
         b = Button(
             text=id,
@@ -62,17 +71,18 @@ class Memory(App):
         )
 
         self.window.add_widget(b)
-        b.bind(on_press=lambda x: self.flip_card(b.text))
+        b.bind(on_press=lambda x: self.flip_card(int(b.text)))
         self.button_list.append(b)
 
     def build(self):
-        amount_of_cards = 5
+        self.amount_of_cards = 5
+        self.flipped_cards = [0]*(self.amount_of_cards*2)
         self.card_list = []
         self.player_turn = 1
         self.turn_counter = 0
         self.score_list = [0,0]
 
-        for i in range(amount_of_cards):
+        for i in range(self.amount_of_cards):
             self.card_list.append(card(i+1))
             self.card_list.append(card(i+1))
 
@@ -85,7 +95,7 @@ class Memory(App):
         self.button_list = []
 
         # Adding buttons:
-        for i in range(2*amount_of_cards):
+        for i in range(2*self.amount_of_cards):
             self.add_button(str(i+1))
 
         # Fixing a label to say which turn it is:
