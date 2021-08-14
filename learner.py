@@ -8,8 +8,10 @@ import random
 import time
 
 class card:
-    def __init__(self, type):
-        pass
+    def __init__(self, id, forward, backward):
+        self.id = id
+        self.forward_text = forward
+        self.backward_text = backward
 
 
 
@@ -22,13 +24,41 @@ class Learner(App):
 
     def play_game(self):
         pass
-    
+
+    def append_flashcard(self):
+        new_card = card(self.flashcards-self.flashcards_left, self.front_text.text, self.back_text.text)
+        self.flashcard_list.append(new_card)
+        self.create_flashcard()
+
     def create_flashcard(self):
+        self.window.clear_widgets()
         if(self.flashcards_left == 0):
-            self.play_game()        
+            self.play_game()
         else:
-            pass
-        
+            print("yo")
+            self.flashcards_left -= 1 #  Exhausting one flash card.
+            self.label.text = "Enter the associated texts below, what you want in the front of the card, and what you want in the back."
+            self.window.add_widget(self.label)
+            self.front_text = TextInput(
+                multiline = True,
+                text = "Front side."
+            )
+
+            self.back_text = TextInput(
+                multiline = True,
+                text="Back side."
+            )
+
+            self.window.add_widget(self.front_text)
+            self.window.add_widget(self.back_text)
+
+            self.add_card = Button(
+                text = "Add card",
+            )
+
+            self.add_card.bind(on_press= lambda x: self.append_flashcard())
+            self.window.add_widget(self.add_card)
+
     def extract_from_text_field(self):
         try:
             self.flashcards = int(self.text_form.text)
