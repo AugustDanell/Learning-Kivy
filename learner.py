@@ -16,14 +16,56 @@ class card:
 
 
 class Learner(App):
+    def shuffle_flashcards(self):
+        for i in range(len(self.flashcard_list) - 1, 0, -1):
+            rand = random.randint(0, i)
+            self.flashcard_list[i], self.flashcard_list[rand] = self.flashcard_list[rand], self.flashcard_list[i]
+
     def quit(self):
         App.get_running_app().stop()
 
     def load_cards(self):
         pass
 
+    def increment_one(self):
+        self.counter += 1
+        self.window.clear_widgets()
+        self.play_game()
+
+    def flip_card(self):
+        if(self.flipped):
+            self.card_button.text = self.flashcard_list[self.counter].forward_text + "(Press to flip)"
+            self.flipped = False
+        else:
+            self.flipped = True
+            self.card_button.text = self.flashcard_list[self.counter].backward_text + "(Press to flip)"
+
     def play_game(self):
-        pass
+
+        self.flipped = False
+        self.card_button = Button(
+            text = self.flashcard_list[self.counter].forward_text + "(Press to flip)"
+        )
+
+        self.next = Button(
+            text = "Press here to continue to the next card."
+        )
+
+        self.back = Button(
+            text = "Press here to continue."
+        )
+
+        self.window.add_widget(self.card_button)
+        self.card_button.bind(on_press = lambda x: self.flip_card())
+
+        if(not self.counter == len(self.flashcard_list)+1):
+            self.window.add_widget(self.next)
+            #self.card_button.bind(on_press=lambda x: self.increment_one())
+
+        if(not self.counter == 0):
+            self.window.add_widget(self.back)
+
+        self.window.add_widget(self.quit_button)
 
     def append_flashcard(self):
         new_card = card(self.flashcards-self.flashcards_left, self.front_text.text, self.back_text.text)
@@ -33,6 +75,8 @@ class Learner(App):
     def create_flashcard(self):
         self.window.clear_widgets()
         if(self.flashcards_left == 0):
+            self.card_counter = 0
+            self.shuffle_flashcards()
             self.play_game()
         else:
             print("yo")
