@@ -3,8 +3,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 import random
+import time
 
 class card:
     def __init__(self, type):
@@ -48,23 +48,33 @@ class Memory(App):
     def update_score(self):
         self.info.text = "Current turn: Player One, Score: %d %d" %(self.score_list[0], self.score_list[1])
 
+    def un_flip(self, id):
+        index = id-1
+
+        # Unflipping the card:
+        self.display_list[index].clear_widgets()
+        self.add_button(str(id))
 
     def flip_card(self, id):
         # Defining useful variables:
         index = id-1
         self.turn_counter += 1
 
+        # count flips, set as flipped and potentially alternate turn:
+        if(self.turn_counter == 3):
+            self.turn_counter = 0
+            first_card, second_card = self.flipped_cards
+
+            self.un_flip(first_card)
+            self.un_flip(second_card)
+            self.flipped_cards = [0,0]
+            self.player_turn = (self.player_turn % 2) + 1
+
         # Flipping the card:
         self.display_list[index].clear_widgets()
         memory_photo = Image(source= self.card_list[index].link)
         self.display_list[index].add_widget(memory_photo)
-
-        # count flips, set as flipped and potentially alternate turn:
-        if(self.turn_counter == 2):
-            self.turn_counter = 0
-            self.flipped_cards = [0]*(self.amount_of_cards*2)
-            self.player_turn = (self.player_turn % 2) + 1
-
+        self.flipped_cards[self.turn_counter-1] = id
 
     def add_button(self, id):
         b = Button(
@@ -88,7 +98,7 @@ class Memory(App):
 
     def build(self):
         self.amount_of_cards = 5
-        self.flipped_cards = [0 for i in range(self.amount_of_cards * 2)]
+        self.flipped_cards = [0,0] # Holds the index of the two flipped cards.
         self.display_list = [GridLayout(cols = 1) for i in range(self.amount_of_cards*2)]
 
         self.card_list = []
