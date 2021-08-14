@@ -69,6 +69,7 @@ class Memory(App):
             self.un_flip(second_card)
             self.flipped_cards = [0,0]
             self.player_turn = (self.player_turn % 2) + 1
+            return 0 
 
         # Flipping the card:
         self.display_list[index].clear_widgets()
