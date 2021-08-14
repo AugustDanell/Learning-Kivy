@@ -27,10 +27,17 @@ class Learner(App):
     def load_cards(self):
         pass
 
+    def decrement_one(self):
+        if(self.counter > 0):
+            self.counter -= 1
+            self.window.clear_widgets()
+            self.play_game()
+
     def increment_one(self):
-        self.counter += 1
-        self.window.clear_widgets()
-        self.play_game()
+        if(self.counter+1 < len(self.flashcard_list)):
+            self.counter += 1
+            self.window.clear_widgets()
+            self.play_game()
 
     def flip_card(self):
         if(self.flipped):
@@ -52,18 +59,19 @@ class Learner(App):
         )
 
         self.back = Button(
-            text = "Press here to continue."
+            text = "Press here to go back."
         )
 
         self.window.add_widget(self.card_button)
         self.card_button.bind(on_press = lambda x: self.flip_card())
 
-        if(not self.counter == len(self.flashcard_list)+1):
+        if(not self.counter+1 == len(self.flashcard_list)):
             self.window.add_widget(self.next)
-            #self.card_button.bind(on_press=lambda x: self.increment_one())
+            self.next.bind(on_press=lambda x: self.increment_one())
 
         if(not self.counter == 0):
             self.window.add_widget(self.back)
+            self.back.bind(on_press=lambda x: self.decrement_one())
 
         self.window.add_widget(self.quit_button)
 
