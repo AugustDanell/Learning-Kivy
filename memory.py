@@ -70,13 +70,23 @@ class Memory(App):
             background_color='#00FFAF',
         )
 
-        self.window.add_widget(b)
+        self.display_list[int(id)-1].add_widget(b)
         b.bind(on_press=lambda x: self.flip_card(int(b.text)))
         self.button_list.append(b)
 
+    def fill_buttons(self):
+        for id in range (1,(self.amount_of_cards*2)+1):
+            self.add_button(str(id))
+
+    def fill_sub_layouts(self):
+        for layout in self.display_list:
+            self.window.add_widget(layout)
+
     def build(self):
         self.amount_of_cards = 5
-        self.flipped_cards = [0]*(self.amount_of_cards*2)
+        self.flipped_cards = [0 for i in range(self.amount_of_cards * 2)]
+        self.display_list = [GridLayout(cols = 1) for i in range(self.amount_of_cards*2)]
+
         self.card_list = []
         self.player_turn = 1
         self.turn_counter = 0
@@ -94,9 +104,11 @@ class Memory(App):
         self.window.cols = 5
         self.button_list = []
 
+        # Generating subgrids in the window layout:
+        self.fill_sub_layouts()
+
         # Adding buttons:
-        for i in range(2*self.amount_of_cards):
-            self.add_button(str(i+1))
+        self.fill_buttons()
 
         # Fixing a label to say which turn it is:
         self.info = Label(
