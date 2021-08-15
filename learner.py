@@ -13,34 +13,38 @@ class card:
         self.forward_text = forward
         self.backward_text = backward
 
-
-
 class Learner(App):
+    # Uses Fisher Yates Algorithm to shuffle the memory cards. 
     def shuffle_flashcards(self):
         for i in range(len(self.flashcard_list) - 1, 0, -1):
             rand = random.randint(0, i)
             self.flashcard_list[i], self.flashcard_list[rand] = self.flashcard_list[rand], self.flashcard_list[i]
-
+    
+    # Quits the game.
     def quit(self):
         App.get_running_app().stop()
-
+    
+    # Loads in cards (TODO).
     def load_cards(self):
         pass
-
+    
+    # Decreases the current card number with one if we want to go back to a previous card:
     def decrement_one(self):
         if(self.counter > 0):
             self.counter -= 1
             self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
-
+    
+    # Does the same as decrement but increments instead that is move forward.
     def increment_one(self):
         if(self.counter+1 < len(self.flashcard_list)):
             self.counter += 1
             self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
-
+    
+    # Flips a card so the other side shows itself.
     def flip_card(self):
         if(self.flipped):
             self.card_button.text = self.flashcard_list[self.counter].forward_text + " (Press to flip)"
@@ -49,6 +53,7 @@ class Learner(App):
             self.flipped = True
             self.card_button.text = self.flashcard_list[self.counter].backward_text + " (Press to flip)"
 
+    # Plays the game with the flashcards.
     def play_game(self):
         self.button_layout = GridLayout(
             size_hint_y = None,
@@ -83,12 +88,14 @@ class Learner(App):
             self.back.bind(on_press=lambda x: self.decrement_one())
 
         self.button_layout.add_widget(self.quit_button)
-
+    
+    # Adds a flash card to the deck.
     def append_flashcard(self):
         new_card = card(self.flashcards-self.flashcards_left, self.front_text.text, self.back_text.text)
         self.flashcard_list.append(new_card)
         self.create_flashcard()
-
+    
+    # Creates a flashcard.
     def create_flashcard(self):
         self.window.clear_widgets()
         if(self.flashcards_left == 0):
@@ -119,7 +126,8 @@ class Learner(App):
 
             self.add_card.bind(on_press= lambda x: self.append_flashcard())
             self.window.add_widget(self.add_card)
-
+    
+    # Takes information from a text field.
     def extract_from_text_field(self):
         try:
             self.flashcards = int(self.text_form.text)
@@ -135,7 +143,8 @@ class Learner(App):
             self.window.clear_widgets()
             self.label.text = "Please, enter in a valid integer greater than zero, how many flashcards do you want?"
             self.handle_integer_input()
-
+    
+    # Takes integer input making up the size of the deck.
     def handle_integer_input(self):
         self.window.add_widget(self.label)
 
@@ -152,7 +161,8 @@ class Learner(App):
         self.window.add_widget(self.proceed)
         self.flashcards = 0
         self.proceed.bind(on_press= lambda x: self.extract_from_text_field())
-
+    
+    # Creates a view where the player can decide how many cards to have.
     def set_cards(self):
         self.window.clear_widgets() # Clears widgets from the previous view.
         self.counter = 0            # Initiate a counter that alternates back and forth so we can write on the back of the card.
@@ -162,7 +172,21 @@ class Learner(App):
         )
 
         self.handle_integer_input()
+    
+    def build(self):
+        # State
+        self.state = "menu"
 
+        # Fixing a grid:
+        self.window = GridLayout()
+        self.window.cols = 1
+
+        # Main program loop:
+        self.main_menu() # Into View 1
+
+        return self.window
+
+    # View 1, the main menu.
     def main_menu(self):
         initial_welcome = Label(
             text = "Hello and welcome to the learner app",
@@ -187,20 +211,6 @@ class Learner(App):
         self.window.add_widget(self.start)
         self.window.add_widget(self.load)
         self.window.add_widget(self.quit_button)
-
-    def build(self):
-        # State
-        self.state = "menu"
-
-        # Fixing a grid:
-        self.window = GridLayout()
-        self.window.cols = 1
-
-        # Main program loop:
-        self.main_menu()
-
-        return self.window
-
 
 if __name__ == "__main__":
     Learner().run()
