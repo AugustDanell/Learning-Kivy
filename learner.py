@@ -30,32 +30,40 @@ class Learner(App):
     def decrement_one(self):
         if(self.counter > 0):
             self.counter -= 1
+            self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
 
     def increment_one(self):
         if(self.counter+1 < len(self.flashcard_list)):
             self.counter += 1
+            self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
 
     def flip_card(self):
         if(self.flipped):
-            self.card_button.text = self.flashcard_list[self.counter].forward_text + "(Press to flip)"
+            self.card_button.text = self.flashcard_list[self.counter].forward_text + " (Press to flip)"
             self.flipped = False
         else:
             self.flipped = True
-            self.card_button.text = self.flashcard_list[self.counter].backward_text + "(Press to flip)"
+            self.card_button.text = self.flashcard_list[self.counter].backward_text + " (Press to flip)"
 
     def play_game(self):
-
+        self.button_layout = GridLayout(
+            size_hint_y = None,
+            height = 50,
+        )
+        self.button_layout.cols = 3
         self.flipped = False
         self.card_button = Button(
-            text = self.flashcard_list[self.counter].forward_text + "(Press to flip)"
+            text = self.flashcard_list[self.counter].forward_text + " (Press to flip)",
+            background_color = (0, 1, 1, 1),
+            color = "000000",
         )
 
         self.next = Button(
-            text = "Press here to continue to the next card."
+            text = "Press here to continue to the next card.",
         )
 
         self.back = Button(
@@ -65,15 +73,16 @@ class Learner(App):
         self.window.add_widget(self.card_button)
         self.card_button.bind(on_press = lambda x: self.flip_card())
 
+        self.window.add_widget(self.button_layout)
         if(not self.counter+1 == len(self.flashcard_list)):
-            self.window.add_widget(self.next)
+            self.button_layout.add_widget(self.next)
             self.next.bind(on_press=lambda x: self.increment_one())
 
         if(not self.counter == 0):
-            self.window.add_widget(self.back)
+            self.button_layout.add_widget(self.back)
             self.back.bind(on_press=lambda x: self.decrement_one())
 
-        self.window.add_widget(self.quit_button)
+        self.button_layout.add_widget(self.quit_button)
 
     def append_flashcard(self):
         new_card = card(self.flashcards-self.flashcards_left, self.front_text.text, self.back_text.text)
@@ -175,7 +184,6 @@ class Learner(App):
         self.quit_button.bind(on_press=lambda x: self.quit())
         self.start.bind(on_press=lambda x: self.set_cards())
 
-        self.window.add_widget(initial_welcome)
         self.window.add_widget(self.start)
         self.window.add_widget(self.load)
         self.window.add_widget(self.quit_button)
