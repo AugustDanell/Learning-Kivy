@@ -6,15 +6,21 @@ from kivy.uix.button import Button
 import random
 import time
 
-class card:
-    def __init__(self, type):
-        pass
-
-
 
 class base(App):
-    def bind_numbers_with(self, number):
+    def ans(self):
         pass
+
+    def bind_numbers_with(self, number):
+        if(type(number) == int):
+            if(self.expression == "0"):
+                self.expression = str(number)
+            else:
+                self.expression += str(number)
+        else:
+            self.expression += number
+
+        self.answer.text = self.expression
 
     def fill_buttons(self):
         self.one = Button(
@@ -65,22 +71,22 @@ class base(App):
         self.div = Button(
             text="/",
         )
-        self.div.bind(on_press= lambda x: self.divide())
+        self.div.bind(on_press= lambda x: self.bind_numbers_with(" + "))
 
         self.mult = Button(
             text="*",
         )
-        self.mult.bind(on_press= lambda x: self.multiplicate())
+        self.mult.bind(on_press= lambda x: self.bind_numbers_with(" / "))
 
         self.sub = Button(
             text="-",
         )
-        self.sub.bind(on_press= lambda x: self.subtract())
+        self.sub.bind(on_press= lambda x: self.bind_numbers_with(" - "))
 
         self.add = Button(
             text="+",
         )
-        self.add.bind(on_press= lambda x: self.addition())
+        self.add.bind(on_press= lambda x: self.bind_numbers_with(" + "))
 
         self.zero = Button(
             text="0",
@@ -117,11 +123,11 @@ class base(App):
         self.window.cols = 1
         self.button_window = GridLayout()
         self.button_window.cols = 4
+        self.expression = ""
 
         self.answer = Label(
             text = "0",
             color = "FFFFFF",
-            #background = "FFFFFF",
         )
         self.window.add_widget(self.answer)
         self.window.add_widget(self.button_window)
