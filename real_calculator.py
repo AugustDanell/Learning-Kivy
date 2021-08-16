@@ -8,6 +8,10 @@ import time
 
 
 class base(App):
+    def reset_func(self):
+        self.expression = "0"
+        self.answer.text = self.expression
+
     def check_numeric(self, candidate_number):
         try:
             int(candidate_number)
@@ -36,6 +40,8 @@ class base(App):
                 factor_one = expression_list[i-1]
                 factor_two = expression_list[i+1]
                 product = int(factor_one) * int(factor_two)
+
+                # Checking for chained multiplication:
                 if(len(new_list) == 0 or not self.check_numeric(new_list[len(new_list)-1])):
                     new_list.append(str(product))
                 elif(len(new_list) > 0 and self.check_numeric(new_list[len(new_list)-1])):
@@ -47,6 +53,8 @@ class base(App):
                 factor_one = expression_list[i - 1]
                 factor_two = expression_list[i + 1]
                 quotient = int(factor_one) // int(factor_two)
+
+                # Checking for chained divisions:
                 if (len(new_list) == 0 or not self.check_numeric(new_list[len(new_list) - 1])):
                     new_list.append(str(quotient))
                 elif (len(new_list) > 0 and self.check_numeric(new_list[len(new_list) - 1])):
@@ -153,6 +161,12 @@ class base(App):
             text="=",
         )
         self.equal.bind(on_press= lambda x: self.ans())
+
+        self.reset = Button(
+            text="RESET",
+        )
+        self.reset.bind(on_press= lambda x: self.reset_func())
+
         self.button_window.add_widget(self.seven)
         self.button_window.add_widget(self.eight)
         self.button_window.add_widget(self.nine)
@@ -169,8 +183,9 @@ class base(App):
         self.button_window.add_widget(self.sub)
 
         self.button_window.add_widget(self.zero)
-        self.button_window.add_widget(self.add)
         self.button_window.add_widget(self.equal)
+        self.button_window.add_widget(self.reset)
+        self.button_window.add_widget(self.add)
 
     def build(self):
 
