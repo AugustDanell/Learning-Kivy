@@ -1,5 +1,7 @@
 # learning-kivy
-A repo designed for learning and maintaining knowledge in the kiwy library for Python. Kivy is a library that is used to develop for instance mobile applications. Much like the library pygame one can use it to write games as well (See pygame repo). For video demonstrations of the projects below, click this link: https://www.youtube.com/playlist?list=PL3iOX_va0_Lg-aulnxieobxkOMDchif32
+A repo designed for learning and maintaining knowledge in the kiwy library for Python. Kivy is a library that is used to develop for instance mobile applications. Much like the library pygame one can use it to write games as well (See pygame repo). For video demonstrations of the projects below, click this link: 
+
+https://www.youtube.com/playlist?list=PL3iOX_va0_Lg-aulnxieobxkOMDchif32
 
 # Project Information
 ## text_game.py (Blueberries)
@@ -17,7 +19,7 @@ An extension of the normal tic_tac_toe game into 3D-space. The dimensions will b
 ## Memory.py
 An implementation of a typical memory. Match the squares together in this game and remember where they were. The idea for this game is to initiate a 5x6 grid layout, totaling a size of 30 cards. Every card will be an object where two cards are the same and they will be initiated in a deck. We will then use the Fisher-Yates shuffling algorithm to shuffle the deck around, to then finally distribute them opon the grid. Each card is itself displayed as a layout with one button, where the button is the backside of the card, and upon clicking the button that specific layout will clear its widgets and instead display an image corrosponding to the link of the card object. 
 
-## learner.py (TODO, a flash card application for learning)
+## learner.py (a flash card application for learning, TODO: Some improvements on the design can be made also the functionality for loading in cards can be added).
 An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those.
 
 ## Fun_With_Sorting_Algorithms (TODO)
