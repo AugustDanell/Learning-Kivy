@@ -9,10 +9,21 @@ import time
 
 class base(App):
     def reset_func(self):
+        '''
+        reset_func
+        reset_func is the reset function called when the reset button is pressed, it makes the expression into a zero 
+        again. 
+        '''
         self.expression = "0"
         self.answer.text = self.expression
 
     def check_numeric(self, candidate_number):
+        '''
+        check_numeric
+        :param candidate_number: 
+        :return: True or false, depending on if candidate number is of type int. 
+        '''
+        
         try:
             int(candidate_number)
         except:
@@ -21,8 +32,12 @@ class base(App):
         return True
 
     def ans(self):
+        '''
+        ans
+        When the equal button (=) is pressed the expression is calculated as an answer, ans() does that.
+        '''
+        
         # Take an expression and calculate it, start with multiplication and division:
-
         expression_list = self.expression.split(" ")    # 1. Split it into a list.
         new_list = []                                   # 2. Declare a list to be processed
         print("Expression list:", expression_list)
@@ -76,6 +91,12 @@ class base(App):
         self.answer.text = self.expression
 
     def bind_numbers_with(self, number):
+        '''
+        bind_numbers_with
+        bind_numbers_with takes in a number and binds it so that when the button is pressed that symbol is appended onto
+        the expression.
+        :param number:  
+        '''
         if(type(number) == int):
             if(self.expression == "0"):
                 self.expression = str(number)
@@ -87,6 +108,11 @@ class base(App):
         self.answer.text = self.expression
 
     def fill_buttons(self):
+        '''
+        fill_buttons
+        fill_buttons fills the board with buttons and binds them as well. 
+        '''
+        
         self.one = Button(
             text = "1",
         )
