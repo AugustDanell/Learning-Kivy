@@ -65,26 +65,50 @@ class base(App):
         self.div = Button(
             text="/",
         )
+        self.div.bind(on_press= lambda x: self.divide())
 
         self.mult = Button(
             text="*",
         )
+        self.mult.bind(on_press= lambda x: self.multiplicate())
 
         self.sub = Button(
             text="-",
         )
+        self.sub.bind(on_press= lambda x: self.subtract())
 
         self.add = Button(
             text="+",
         )
+        self.add.bind(on_press= lambda x: self.addition())
 
         self.zero = Button(
             text="0",
         )
+        self.zero.bind(on_press= lambda x: self.bind_numbers_with(0))
 
         self.equal = Button(
             text="=",
         )
+        self.equal.bind(on_press= lambda x: self.ans())
+        self.button_window.add_widget(self.seven)
+        self.button_window.add_widget(self.eight)
+        self.button_window.add_widget(self.nine)
+        self.button_window.add_widget(self.div)
+
+        self.button_window.add_widget(self.four)
+        self.button_window.add_widget(self.five)
+        self.button_window.add_widget(self.six)
+        self.button_window.add_widget(self.mult)
+
+        self.button_window.add_widget(self.three)
+        self.button_window.add_widget(self.two)
+        self.button_window.add_widget(self.one)
+        self.button_window.add_widget(self.sub)
+
+        self.button_window.add_widget(self.zero)
+        self.button_window.add_widget(self.add)
+        self.button_window.add_widget(self.equal)
 
     def build(self):
 
@@ -95,8 +119,13 @@ class base(App):
         self.button_window.cols = 4
 
         self.answer = Label(
-            text = 0,
+            text = "0",
+            color = "FFFFFF",
+            #background = "FFFFFF",
         )
+        self.window.add_widget(self.answer)
+        self.window.add_widget(self.button_window)
+        self.fill_buttons()
 
         return self.window
 
