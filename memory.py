@@ -6,6 +6,12 @@ from kivy.uix.button import Button
 import random
 import time
 
+''' card
+    The class card is a memory card class. It has a non-unique id called 'type' and a link as an attribute. The attribute type pertains to the link, so a card with the type 1 will
+    have the same link as another card with type 1, both of them will have link to a picture of a duck. By comparing the types we can, as such, discern if we have a match between
+    two cards or not.  
+'''
+
 class card:
     def __init__(self, type):
         self.type = type
@@ -41,14 +47,26 @@ class card:
 
 class Memory(App):
     def fisher_yates(self):
+        ''' fisher_yates
+            The fisher-yates algorithm is a shuffling algorithm to achieve pseudo randomness. We use it to shuffle the memory cards when initiating the game.
+        '''
+
         for i in range(len(self.card_list) - 1, 0, -1):
             rand = random.randint(0, i)
             self.card_list[i], self.card_list[rand] = self.card_list[rand], self.card_list[i]
 
     def update_score(self):
+        ''' update_score
+            Updates the score to be current (Not in use in the current single player version).
+        '''
+        
         self.info.text = "Current turn: Player One, Score: %d %d" %(self.score_list[0], self.score_list[1])
 
     def un_flip(self, id):
+        ''' un_flip
+            A function that takes an id and simply unflips the card meaning the backside will be turned upwards.
+        '''        
+
         index = id-1
 
         # Unflipping the card:
@@ -56,6 +74,10 @@ class Memory(App):
         self.add_button(str(id))
 
     def flip_card(self, id):
+        ''' flip_card
+            Takes a card with its backside up (the button label) and flips it with the image up.
+        '''
+
         # Setting the index and checking if it is a won card already, and if so, we should do nothing:
         index = id - 1
         if(index in self.winning_indices):
@@ -95,6 +117,10 @@ class Memory(App):
         self.flipped_cards[self.turn_counter-1] = id-1
 
     def add_button(self, id):
+        ''' add_button
+            A helper function to add and bind a button.
+        '''
+
         b = Button(
             text=id,
             size_hint=(1, 0.5),
@@ -107,10 +133,19 @@ class Memory(App):
         self.button_list.append(b)
 
     def fill_buttons(self):
+        ''' fill_buttons
+            A helper function that fills the board with buttons ranging from 1 .. to n, where n is the amount of cards the players want to have.
+        '''
+
         for id in range (1,(self.amount_of_cards*2)+1):
             self.add_button(str(id))
 
     def fill_sub_layouts(self):
+        ''' fill_sub_layouts
+            Fills the sub layouts, that would be, layouts to be used like cards. To achieve the flipping affect we use inner layouts as cards and upon flipping we clear the widget
+            and then paint the image on that layout (or the button if unflipping).
+        '''
+
         for layout in self.display_list:
             self.window.add_widget(layout)
 
