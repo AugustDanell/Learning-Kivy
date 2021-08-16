@@ -8,6 +8,14 @@ import time
 
 
 class base(App):
+    def check_numeric(self, candidate_number):
+        try:
+            int(candidate_number)
+        except:
+            return False
+
+        return True
+
     def ans(self):
         # Take an expression and calculate it, start with multiplication and division:
 
@@ -28,7 +36,11 @@ class base(App):
                 factor_one = expression_list[i-1]
                 factor_two = expression_list[i+1]
                 product = int(factor_one) * int(factor_two)
-                new_list.append(str(product))
+                if(len(new_list) == 0 or not self.check_numeric(new_list[len(new_list)-1])):
+                    new_list.append(str(product))
+                elif(len(new_list) > 0 and self.check_numeric(new_list[len(new_list)-1])):
+                    new_list[len(new_list) -1] = str(product)
+
                 expression_list[i+1] = str(product)     # Remember: We must also change the last operand in case we have something like 4*4*4, this should be 64.
 
             elif (expression_list[i] == "/"):
