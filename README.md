@@ -1,4 +1,4 @@
-# learning-kivy
+# Learning-Kivy
 A repo designed for learning and maintaining knowledge in the kiwy library for Python. Kivy is a library that is used to develop for instance mobile applications. Much like the library pygame one can use it to write games as well (See pygame repo). For video demonstrations of the projects below, click this link: 
 
 https://www.youtube.com/playlist?list=PL3iOX_va0_Lg-aulnxieobxkOMDchif32
