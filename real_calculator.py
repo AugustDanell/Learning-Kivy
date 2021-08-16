@@ -9,7 +9,44 @@ import time
 
 class base(App):
     def ans(self):
-        pass
+        # Take an expression and calculate it, start with multiplication and division:
+
+        expression_list = self.expression.split(" ")    # 1. Split it into a list.
+        new_list = []                                   # 2. Declare a list to be processed
+        for i in range(1,len(expression_list) -1, 1):   # 3. Loop through it, checking for operations and appending operands.
+
+            # If we come across + or - we just save the previous operand and the operation, if it is the last operation done we save both operands.
+            if(expression_list[i] == "+" or expression_list[i] == "-"):
+                new_list.append(expression_list[i-1])
+                new_list.append(expression_list[i])
+                if(i == len(expression_list) - 2):
+                    new_list.append(expression_list[i+1])
+
+            # If, however, our operation is that of multiplication or division we handle it immedietly:
+            elif(expression_list == "*"):
+                factor_one = expression_list[i-1]
+                factor_two = expression_list[i+1]
+                product = int(factor_one) * int(factor_two)
+                new_list.append(str(product))
+                expression_list[i+1] = str(product)     # Remember: We must also change the last operand in case we have something like 4*4*4, this should be 64.
+
+            elif (expression_list == "/"):
+                factor_one = expression_list[i - 1]
+                factor_two = expression_list[i + 1]
+                quotient = int(factor_one) // int(factor_two)
+                new_list.append(str(quotient))
+                expression_list[i + 1] = str(quotient)  # Remember: We must also change the last operand in case we have something like 4*4*4, this should be 64.
+
+        sum = int(new_list[0])
+        for i in range(1, len(new_list) -1, 1):
+            if(new_list[i] == "+"):
+                sum += int(new_list[i+1])
+            elif(new_list[i] == "-"):
+                sum -= int(new_list[i+1])
+
+        print(sum)
+        self.expression = str(sum)
+        self.answer.text = self.expression
 
     def bind_numbers_with(self, number):
         if(type(number) == int):
