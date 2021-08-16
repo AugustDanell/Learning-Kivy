@@ -13,6 +13,7 @@ class base(App):
 
         expression_list = self.expression.split(" ")    # 1. Split it into a list.
         new_list = []                                   # 2. Declare a list to be processed
+        print("Expression list:", expression_list)
         for i in range(1,len(expression_list) -1, 1):   # 3. Loop through it, checking for operations and appending operands.
 
             # If we come across + or - we just save the previous operand and the operation, if it is the last operation done we save both operands.
@@ -23,19 +24,21 @@ class base(App):
                     new_list.append(expression_list[i+1])
 
             # If, however, our operation is that of multiplication or division we handle it immedietly:
-            elif(expression_list == "*"):
+            elif(expression_list[i] == "*"):
                 factor_one = expression_list[i-1]
                 factor_two = expression_list[i+1]
                 product = int(factor_one) * int(factor_two)
                 new_list.append(str(product))
                 expression_list[i+1] = str(product)     # Remember: We must also change the last operand in case we have something like 4*4*4, this should be 64.
 
-            elif (expression_list == "/"):
+            elif (expression_list[i] == "/"):
                 factor_one = expression_list[i - 1]
                 factor_two = expression_list[i + 1]
                 quotient = int(factor_one) // int(factor_two)
                 new_list.append(str(quotient))
                 expression_list[i + 1] = str(quotient)  # Remember: We must also change the last operand in case we have something like 4*4*4, this should be 64.
+
+        print("New List:", new_list)
 
         sum = int(new_list[0])
         for i in range(1, len(new_list) -1, 1):
@@ -108,12 +111,12 @@ class base(App):
         self.div = Button(
             text="/",
         )
-        self.div.bind(on_press= lambda x: self.bind_numbers_with(" + "))
+        self.div.bind(on_press= lambda x: self.bind_numbers_with(" / "))
 
         self.mult = Button(
             text="*",
         )
-        self.mult.bind(on_press= lambda x: self.bind_numbers_with(" / "))
+        self.mult.bind(on_press= lambda x: self.bind_numbers_with(" * "))
 
         self.sub = Button(
             text="-",
