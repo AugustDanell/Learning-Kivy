@@ -28,7 +28,21 @@ class Learner(App):
         pass
 
     def load_in_choice(self, text):
-        pass
+        split = text.split()
+        id = int(split[0])
+        index = id -1
+
+        word_list = self.load_options[index]
+        print(word_list)
+
+        for word in word_list:
+            front,back = word.split("-")
+            new_card = card(id, front, back)
+            self.flashcard_list.append(new_card)
+        self.counter = 0
+        self.window.clear_widgets()
+        self.play_game()
+
 
     # Loads in cards:
     def load_cards(self):
@@ -38,19 +52,19 @@ class Learner(App):
             We make a button with that name and save it as such, also making a back button.
         '''
 
+        self.flashcard_list = []
         self.window.clear_widgets()
         self.load_screen = GridLayout()
         self.load_screen.cols = 1
 
         self.window.add_widget(self.load_screen)
         self.load_options = []
-        #self.load_buttons = []
         with open('flashcards/saved_flashcards') as file:
             text_lines = file.readlines()
             numeration = 1
 
             for line in text_lines:
-                split = line.split(",")
+                split = line.split(";")
                 cards = split[1:]
                 self.load_options.append(cards)
                 b = Button(
