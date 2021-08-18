@@ -19,8 +19,8 @@ An extension of the normal tic_tac_toe game into 3D-space. The dimensions will b
 ## Memory.py
 An implementation of a typical memory. Match the squares together in this game and remember where they were. The idea for this game is to initiate a 5x6 grid layout, totaling a size of 30 cards. Every card will be an object where two cards are the same and they will be initiated in a deck. We will then use the Fisher-Yates shuffling algorithm to shuffle the deck around, to then finally distribute them opon the grid. Each card is itself displayed as a layout with one button, where the button is the backside of the card, and upon clicking the button that specific layout will clear its widgets and instead display an image corrosponding to the link of the card object. 
 
-## learner.py (a flash card application for learning, TODO: Some improvements on the design can be made also the functionality for loading in cards can be added).
-An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those.
+## learner.py (a flash card application I use for learning Italian at the moment:) )
+An application much like a flash card learner where a user can add a text and associate that with an answer to then be drilled on those. There is also added functionality so the user can load in previous flashcards, from a textfile. I also want to make it so we can save our current deck of flashcards.
 
 ## Fun_With_Sorting_Algorithms (TODO)
 A game where the user will get different animations of sorting algorithms and the goal is to correctly guess the sorting algorithm. This is meant to be a fun gameified learning experience to repeat, or familiarize oneself with the different sorting algorithms one can come across. 
