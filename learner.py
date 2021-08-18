@@ -14,20 +14,56 @@ class card:
         self.backward_text = backward
 
 class Learner(App):
-    # Uses Fisher Yates Algorithm to shuffle the memory cards. 
+    # Uses Fisher Yates Algorithm to shuffle the memory cards.
     def shuffle_flashcards(self):
         for i in range(len(self.flashcard_list) - 1, 0, -1):
             rand = random.randint(0, i)
             self.flashcard_list[i], self.flashcard_list[rand] = self.flashcard_list[rand], self.flashcard_list[i]
-    
+
     # Quits the game.
     def quit(self):
         App.get_running_app().stop()
-    
-    # Loads in cards (TODO).
-    def load_cards(self):
+
+    def save_cards(self):
         pass
-    
+
+    def load_in_choice(self, text):
+        pass
+
+    # Loads in cards:
+    def load_cards(self):
+        ''' load_cards
+            Idea: We can have a big list where each item is a dictionary of type (string -> list).
+            The string is the name of the flashcard deck, for instance Italian, and the list is the list of all the words.
+            We make a button with that name and save it as such, also making a back button.
+        '''
+
+        self.window.clear_widgets()
+        self.load_screen = GridLayout()
+        self.load_screen.cols = 1
+
+        self.window.add_widget(self.load_screen)
+        self.load_options = []
+        #self.load_buttons = []
+        with open('flashcards/saved_flashcards') as file:
+            text_lines = file.readlines()
+            numeration = 1
+
+            for line in text_lines:
+                split = line.split(",")
+                cards = split[1:]
+                self.load_options.append(cards)
+                b = Button(
+                    text = str(numeration) + " " + split[0],
+                )
+                self.load_screen.add_widget(b)
+                b.bind(on_press=lambda x: self.load_in_choice(b.text))
+
+                print(cards)
+                numeration += 1
+        print("YO")
+
+
     # Decreases the current card number with one if we want to go back to a previous card:
     def decrement_one(self):
         if(self.counter > 0):
@@ -35,7 +71,7 @@ class Learner(App):
             self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
-    
+
     # Does the same as decrement but increments instead that is move forward.
     def increment_one(self):
         if(self.counter+1 < len(self.flashcard_list)):
@@ -43,7 +79,7 @@ class Learner(App):
             self.button_layout.clear_widgets()
             self.window.clear_widgets()
             self.play_game()
-    
+
     # Flips a card so the other side shows itself.
     def flip_card(self):
         if(self.flipped):
@@ -88,13 +124,13 @@ class Learner(App):
             self.back.bind(on_press=lambda x: self.decrement_one())
 
         self.button_layout.add_widget(self.quit_button)
-    
+
     # Adds a flash card to the deck.
     def append_flashcard(self):
         new_card = card(self.flashcards-self.flashcards_left, self.front_text.text, self.back_text.text)
         self.flashcard_list.append(new_card)
         self.create_flashcard()
-    
+
     # Creates a flashcard.
     def create_flashcard(self):
         self.window.clear_widgets()
@@ -126,7 +162,7 @@ class Learner(App):
 
             self.add_card.bind(on_press= lambda x: self.append_flashcard())
             self.window.add_widget(self.add_card)
-    
+
     # Takes information from a text field.
     def extract_from_text_field(self):
         try:
@@ -143,7 +179,7 @@ class Learner(App):
             self.window.clear_widgets()
             self.label.text = "Please, enter in a valid integer greater than zero, how many flashcards do you want?"
             self.handle_integer_input()
-    
+
     # Takes integer input making up the size of the deck.
     def handle_integer_input(self):
         self.window.add_widget(self.label)
@@ -161,7 +197,7 @@ class Learner(App):
         self.window.add_widget(self.proceed)
         self.flashcards = 0
         self.proceed.bind(on_press= lambda x: self.extract_from_text_field())
-    
+
     # Creates a view where the player can decide how many cards to have.
     def set_cards(self):
         self.window.clear_widgets() # Clears widgets from the previous view.
@@ -172,7 +208,7 @@ class Learner(App):
         )
 
         self.handle_integer_input()
-    
+
     def build(self):
         # State
         self.state = "menu"
