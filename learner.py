@@ -247,7 +247,7 @@ class Learner(App):
         )
 
         self.load = Button(
-            text = "Load Flashcards (not in use yet)",
+            text = "Load Flashcards",
         )
 
         self.quit_button = Button(
