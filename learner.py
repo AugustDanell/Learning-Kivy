@@ -62,16 +62,20 @@ class Learner(App):
         with open('flashcards/saved_flashcards') as file:
             text_lines = file.readlines()
             numeration = 1
+            button_list = []
 
             for line in text_lines:
                 split = line.split(";")
                 cards = split[1:]
+                for i in range(len(cards)):
+                    cards[i] = cards[i].strip()
+
                 self.load_options.append(cards)
                 b = Button(
                     text = str(numeration) + " " + split[0],
                 )
                 self.load_screen.add_widget(b)
-                b.bind(on_press=lambda x: self.load_in_choice(b.text))
+                b.bind(on_press=lambda x: self.load_in_choice(text = b.text))
 
                 print(cards)
                 numeration += 1
