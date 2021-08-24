@@ -117,7 +117,8 @@ class Learner(App):
         self.flipped = False
         self.card_button = Button(
             text = self.flashcard_list[self.counter].forward_text + " (Press to flip)",
-            background_color = (0, 1, 1, 1),
+            background_normal = '',
+            background_color = (0.9, 1.0, 1.0, 1.0),
             color = "000000",
         )
 
