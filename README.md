@@ -41,3 +41,9 @@ An application that takes in a function and calculates things like extreme value
 ## tic_tac_toe.py
 <img src ="https://user-images.githubusercontent.com/70810124/129105178-9f8598c8-587d-450e-87d8-44af13193234.png" width = "400" height = "300" />
 <img src ="https://user-images.githubusercontent.com/70810124/129105184-d8a6f964-4a20-4b9f-a2d1-8326e3485df6.png" width = "400" height = "300" />
+
+## memory.py
+<img src = "https://user-images.githubusercontent.com/70810124/130773149-cf59e162-21ab-4bc5-91f7-f112c3e143b6.png" width = "400" height = "300" />
+<img src = "https://user-images.githubusercontent.com/70810124/130773243-2c5f8ff5-31d4-462a-adc4-fe03ea33a545.png" width = "400" height = "300" />
+<img src = "https://user-images.githubusercontent.com/70810124/130773251-cebe116c-2af3-497e-9b73-9b3dde462bf0.png" width = "400" height = "300" />
+
