@@ -7,6 +7,11 @@ from kivy.uix.textinput import TextInput
 
 class text_game(App):
     def button_texts(self, button_id):
+        
+        ''' button_texts
+            A function holding the texts displayed on the buttons, returning a text dependent on what state the player is in. 
+        '''
+        
         index = ord(button_id)-97
         buttons = {
            -1: ["No Option", "No Option", "No Option", "No Option"],
@@ -19,6 +24,10 @@ class text_game(App):
         return buttons[self.state][index]
 
     def text_bank(self):
+        ''' text_bank
+            A function holding the different labels for the scenario, returning the label that is for the state s. 
+        '''
+
         label = {
             -1: "You wake up at the hospital in pain. The bear went to work on your body but the real source\n of your pain, you realize, is that you never got to taste those Swedish blueberries. You lose!",
             1: "You are walking in the woods and a bear immerges from the bushes, what do you do?",
@@ -30,6 +39,12 @@ class text_game(App):
         return label[self.state]
 
     def update(self):
+        ''' Update
+            Calls the aforementioned functions to draw up a scenario and buttons based on what state we are in. Also changing the colour to red or blue based on the player winning,
+            that is, if the player has reached a winning state or not. 
+        '''
+        
+        
         self.a.text = self.button_texts("a")
         self.b.text = self.button_texts("b")
         self.c.text = self.button_texts("c")
@@ -42,11 +57,14 @@ class text_game(App):
 
         self.scenario_text.text = self.text_bank()
 
-    ''' get_transition_table
-        A general function that returns the transitions for a state s in the form of a list.     
-    '''
 
     def update_state(self,  button_id):
+        '''
+            update_state
+            Takes in an id of a button, like button 'a' for instance, and transforms it to its corrosponding index. This function then does the mapping so if we press a button X
+            and we are in state S, update_state will then move the player to state S'. 
+        '''
+        
         index =  ord(button_id) - 97
         game_states = {
                 1 : [3,2,-1,-1],
@@ -57,12 +75,12 @@ class text_game(App):
         self.state = game_states[self.state][index]
         self.update()
 
-    ''' get_table_size
-        Given that we are in a state s we need to know the size of that state table that is how many transitions there
-        are, we need this to be able to know how many buttons to draw for a given state.
-    '''
-
     def get_table_size(self, current_state):
+        
+        ''' get_table_size
+            Given that we are in a state s we need to know the size of that state table that is how many transitions there
+            are, we need this to be able to know how many buttons to draw for a given state.
+        '''
         return len(self.get_transistion_table(current_state))
 
 
