@@ -10,21 +10,28 @@ class text_game(App):
         index = ord(button_id)-97
         buttons = {
            -1: ["No Option", "No Option", "No Option", "No Option"],
-            1: ["You play dead.", "You slowly walk back.", "You stay where you are.", "You fight."],
-            2: ["You re-enter the forrest in spite of the late hour", "You rest for the night", "No option", "No option"],
-            3: ["You follow the trail", "You stay where you are", "No Option", "No Option"],
-            4: ["No Option", "No Option", "No Option", "No Option"]
+            1: ["You try to rationally navigate yourself home, walking on the street", "You ask a stranger for help.", "No option", "No option"],
+            2: ["You try to rationally navigate yourself home, walking on the street", "No option", "No option", "No option"],
+            3: ["You walk away, intent on coming back later.", "You approach the officers to have a talk.", "You attempt to sneak into your room.", "No Option"],
+            4: ["You climb the gutter.", "You climb the ladder to the roof.", "No option.", "No option."],
+            5: [],
+            6: [],
+            7: [],
+            8: [],
         }
 
         return buttons[self.state][index]
 
     def text_bank(self):
         label = {
-            -1: "",
-            1: "You wake up, stripped of all possession but for your ragged cloths and your keys. What do you do?",
-            2: "The stranger smells the use of narcotics on you and ignores your plead. What do you do?",
-            3: "By the entrance to your flat stands a group of police officers, not seeing you, what to do?",
-            4: "",
+           -1: "The gutter dislodges and you fall to your death.",
+            1: "You wake up stripped of all pocessions but for your clothes and keys home.",
+            2: "The stranger you ask for help smell narcotics on you and decides to ignore you.\nWhat do you do?",
+            3: "Next to your appartment complex there is a group of police officers. What do you do?",
+            4: "You know there is a roof entrance. Either you could climb the gutter or you could take\nthe ladder, what do you do?",
+            5: "They arrest you on the spot, matching your ID with the adress.",
+            6: "You return and the police officers are gone.",
+            7: "You find yourself in jail and you have to get home."
         }
 
         return label[self.state]
